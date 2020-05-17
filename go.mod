@@ -18,7 +18,7 @@ require (
 	github.com/konsorten/go-windows-terminal-sequences v1.0.2 // indirect
 	github.com/ngaut/pools v0.0.0-20180318154953-b7bc8c42aac7
 	github.com/pingcap-incubator/tinykv v0.0.0-20200320061650-f660f803e910
-	github.com/pingcap/check v0.0.0-20191107115940-caf2b9e6ccf4
+	github.com/pingcap/check v0.0.0-20200212061837-5e12011dc712
 	github.com/pingcap/errors v0.11.5-0.20190809092503-95897b64e011
 	github.com/pingcap/failpoint v0.0.0-20191029060244-12f4ac2fd11d
 	github.com/pingcap/goleveldb v0.0.0-20171020122428-b9ff6c35079e

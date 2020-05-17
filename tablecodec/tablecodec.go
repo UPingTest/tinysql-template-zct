@@ -72,6 +72,22 @@ func EncodeRowKeyWithHandle(tableID int64, handle int64) kv.Key {
 // DecodeRecordKey decodes the key and gets the tableID, handle.
 func DecodeRecordKey(key kv.Key) (tableID int64, handle int64, err error) {
 	/* Your code here */
+	if !key.HasPrefix(tablePrefix) {
+		return 0, 0, errors.New("invalid encoded hash data key prefix")
+	}
+	key = key[len(tablePrefix):]
+	key, tableID, err = codec.DecodeInt(key)
+	if err != nil {
+		return 0, 0, err
+	}
+	if !key.HasPrefix(recordPrefixSep) {
+		return 0, 0, errors.New("invalid encoded has record prefix")
+	}
+	key = key[len(recordPrefixSep):]
+	key, handle, err = codec.DecodeInt(key)
+	if err != nil {
+		return 0, 0, err
+	}
 	return
 }
 
@@ -95,6 +111,23 @@ func EncodeIndexSeekKey(tableID int64, idxID int64, encodedValue []byte) kv.Key 
 // DecodeIndexKeyPrefix decodes the key and gets the tableID, indexID, indexValues.
 func DecodeIndexKeyPrefix(key kv.Key) (tableID int64, indexID int64, indexValues []byte, err error) {
 	/* Your code here */
+	if !key.HasPrefix(tablePrefix) {
+		return 0, 0, nil, errors.New("invalid encoded hash data key prefix")
+	}
+	key = key[len(tablePrefix):]
+	key, tableID, err = codec.DecodeInt(key)
+	if err != nil {
+		return 0, 0, nil ,err
+	}
+	if !key.HasPrefix(indexPrefixSep) {
+		return 0, 0, nil, errors.New("invalid encoded has index prefix")
+	}
+	key = key[len(indexPrefixSep):]
+	key, indexID, err = codec.DecodeInt(key)
+	if err != nil {
+		return 0, 0, nil, err
+	}
+	indexValues = key[:]
 	return tableID, indexID, indexValues, nil
 }
 
