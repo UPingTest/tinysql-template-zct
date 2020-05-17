@@ -117,7 +117,7 @@ func DecodeIndexKeyPrefix(key kv.Key) (tableID int64, indexID int64, indexValues
 	key = key[len(tablePrefix):]
 	key, tableID, err = codec.DecodeInt(key)
 	if err != nil {
-		return 0, 0, nil ,err
+		return 0, 0, nil, err
 	}
 	if !key.HasPrefix(indexPrefixSep) {
 		return 0, 0, nil, errors.New("invalid encoded has index prefix")
